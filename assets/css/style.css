@@ -15,7 +15,7 @@
     --fs-hero: clamp(48px, 7vw, 82px);
     --fs-h2: clamp(32px, 4vw, 48px);
     --fs-body: clamp(16px, 2vw, 30px);
-    --fs-btn: clamp(14px, 2vw, 26px);
+    --fs-btn: clamp(16px, 2vw, 26px);
 
     --gap-para: 20px;
 
@@ -79,9 +79,6 @@ header {
     left: 0;
     right: 0;
     z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 14px 48px;
     background: var(--header-bg);
     backdrop-filter: blur(32px);
@@ -89,9 +86,13 @@ header {
     border-bottom: 1px solid var(--gray);
 }
 header .wrapper {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 /* «Я иллюстратор ↗» — подчёркивание цвета hover при наведении */
 .nav-link {
@@ -99,31 +100,34 @@ header .wrapper {
     font-weight: 500;
     color: var(--white);
     text-decoration: none;
-    display: inline-flex; /* важно */
+    display: inline-flex;
     align-items: center;
     gap: 6px;
     position: relative;
+    white-space: nowrap;
 }
 
 .nav-link::after {
     content: "";
     position: absolute;
+    bottom: -4px;
     left: 0;
-    bottom: -4px; /* отступ от текста */
-    width: 0;
-    height: 2px;
-    background-color: #437257; /* или var(--hover) */
-    transition: width 0.25s ease;
+    width: 100%;
+    height: 1px;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
 }
 
 .nav-link:hover::after {
-    width: 100%;
+    background-color: var(--hover);
 }
 
 .nav-actions {
     display: flex;
     gap: 12px;
 }
+
+
 
 /* =============================================
 WRAPPER — ограничение ширины контента
@@ -279,10 +283,10 @@ p {
 .hero-3d {
     position: absolute;
     align-items: center;
-    right: 550px;
+    right: 25%; /* Вместо 550px */
+    width: 55%;
     top: 58%;
     transform: translateY(-50%);
-    width: 52%;
     max-width: 720px;
     pointer-events: none;
 }
@@ -422,17 +426,53 @@ p {
 }
 
 /* =============================================
-АДАПТИВ
+   АДАПТИВ (ИСПРАВЛЕННЫЙ)
 ============================================= */
-@media (max-width: 900px) {
+
+/* Планшеты (1024px и меньше) */
+@media (max-width: 1024px) {
+    :root {
+        --grid-size: 48px;
+    }
+    
+    .hero-3d {
+        width: 45%;
+        right: 3%;
+    }
+    
+    .hero-content {
+        max-width: 50%;
+    }
+}
+
+/* Малые планшеты / Большие телефоны (800px и меньше) */
+@media (max-width: 800px) {
     header {
-        padding: 12px 24px;
+        padding: 12px 20px;
     }
 
     .hero {
-        padding: 100px 24px 60px;
+        padding: 100px 20px 40px;
+        min-height: auto;
         flex-direction: column;
-        align-items: flex-start;
+    }
+
+    .hero .wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .hero-identity {
+        flex-direction: column;
+        gap: 20px;
     }
 
     .hero-3d {
@@ -440,26 +480,118 @@ p {
         right: auto;
         top: auto;
         transform: none;
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
+        order: 2; /* Картинка под текстом */
+    }
+    
+    .hero-3d img {
         width: 100%;
-        max-width: 100%;
-        margin-top: 32px;
     }
 
-    .portfolio {
-        padding: 60px 24px;
+    /* Убираем фиксированную ширину кнопок, пусть тянутся */
+    .hero-actions {
+        width: 100%;
+        max-width: 400px;
     }
-
-    .portfolio-grid {
-        grid-template-columns: 1fr;
+    
+    /* Перенос кнопок в hero, если экран мал */
+    .hero-actions .secondary-btns {
+        flex-wrap: wrap;
+    }
+    
+    .hero-actions .secondary-btns .btn {
+        flex: 1 1 40%;
     }
 }
 
+/* Мобильные (600px и меньше) */
 @media (max-width: 600px) {
-    .hero-name {
-        font-size: clamp(36px, 10vw, 64px);
+    :root {
+        --grid-size: 32px;
+        --fs-hero: 42px;
+        --fs-body: 18px;
+        --gap-para: 12px;
     }
 
-    .hero-logo {
-        width: 56px;
+    /* Шапка: убираем текст "Я иллюстратор", оставляем только иконку со стрелкой */
+    .nav-link p {
+        display: none;
+    }
+    
+    .nav-link svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Делаем кнопки в шапке только иконками */
+    .nav-actions .btn {
+        padding: 12px;
+    }
+    .nav-actions .btn span, /* если бы был спан */
+    .nav-actions .btn {
+        font-size: 0; /* Скрываем текст */
+        gap: 0;
+    }
+    .nav-actions .btn svg {
+        margin: 0;
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Блок образования в hero */
+    .hero-edu {
+        align-items: center;
+    }
+    
+    /* Портфолио: карточки в 1 колонку */
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Карточка: выключаем выезжающую панель и показываем инфу всегда */
+    .card-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateX(0) !important;
+        opacity: 1 !important;
+        max-width: 100%;
+        border-radius: 0 0 var(--radius-card) var(--radius-card);
+        background: rgba(42, 88, 63, 0.95);
+        backdrop-filter: blur(4px);
+        padding: 10px 16px;
+        transition: none;
+        text-align: left;
+        z-index: 3;
+    }
+    
+    .card-year {
+        bottom: 50px; /* Поднимаем год, чтобы не перекрывался панелью */
+        right: 16px;
+        z-index: 4;
+    }
+
+    .card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 20px 4px rgba(67, 114, 87, 0.3);
+    }
+}
+
+/* Очень маленькие экраны (400px) */
+@media (max-width: 400px) {
+    header {
+        padding: 8px 16px;
+    }
+    
+    .btn {
+        padding: 10px 16px;
+    }
+    
+    .hero-actions .secondary-btns {
+        flex-direction: column;
     }
 }
