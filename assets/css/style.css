@@ -12,10 +12,10 @@
 
     --font: 'Alumni Sans', sans-serif;
 
-    --fs-hero: clamp(48px, 7vw, 100px);
-    --fs-h2: clamp(32px, 4vw, 64px);
-    --fs-body: clamp(16px, 2vw, 32px);
-    --fs-btn: clamp(14px, 2vw, 28px);
+    --fs-hero: clamp(48px, 7vw, 82px);
+    --fs-h2: clamp(32px, 4vw, 48px);
+    --fs-body: clamp(16px, 2vw, 30px);
+    --fs-btn: clamp(14px, 2vw, 26px);
 
     --gap-para: 20px;
 
@@ -86,6 +86,7 @@ header {
     background: var(--header-bg);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid var(--gray);
 }
 header .wrapper {
     flex-direction: row;
@@ -98,16 +99,25 @@ header .wrapper {
     font-weight: 500;
     color: var(--white);
     text-decoration: none;
-    display: flex;
+    display: inline-flex; /* важно */
     align-items: center;
     gap: 6px;
-    transition: color 0.2s;
+    position: relative;
 }
 
-.nav-link:hover {
-    color: var(--hover);
-    text-decoration: underline;
-    text-decoration-color: var(--hover);
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px; /* отступ от текста */
+    width: 0;
+    height: 2px;
+    background-color: #437257; /* или var(--hover) */
+    transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .nav-actions {
@@ -186,7 +196,7 @@ HERO
     padding: 82px 48px 80px;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 100%;
 }
 
@@ -201,7 +211,7 @@ HERO
     max-width: 650px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 64px;
 }
 
 .hero-identity {
@@ -212,7 +222,7 @@ HERO
 
 /* Логотип — замени src на путь к своему файлу */
 .hero-logo {
-    width: 110px;
+    width: 64px;
     height: auto;
     flex-shrink: 0;
 }
@@ -222,7 +232,7 @@ HERO
     font-size: var(--fs-hero);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: 2%;
+    letter-spacing: 4%;
 }
 
 /* Блок образования */
@@ -232,33 +242,53 @@ HERO
     gap: var(--gap-para);
 }
 
-.hero-edu p {
+p {
     font-size: var(--fs-body);
     font-weight: 500;
     line-height: 1.2;
+    letter-spacing: 4%;
 }
 
 .hero-actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 8px;
+    flex-direction: column;
+    width: 330px;
+    gap: 24px;
+}
+
+.hero-actions .main-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.hero-actions .secondary-btns {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.hero-actions .btn{
+    width: 100%;
+    justify-content: center;
 }
 
 /* 3D-изображение справа */
 .hero-3d {
     position: absolute;
-    right: 0;
-    top: 50%;
+    align-items: center;
+    right: 550px;
+    top: 58%;
     transform: translateY(-50%);
     width: 52%;
     max-width: 720px;
-    z-index: 1;
     pointer-events: none;
 }
 
 .hero-3d img {
-    width: 100%;
+    width: 160%;
     height: auto;
     display: block;
 }
