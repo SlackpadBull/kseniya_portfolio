@@ -36,6 +36,11 @@
     padding: 0;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -291,6 +296,7 @@ p {
     transform: translateY(-50%);
     max-width: 650px;
     pointer-events: none;
+    overflow: hidden;  
 }
 
 .hero-3d img {
