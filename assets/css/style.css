@@ -347,7 +347,7 @@ p {
 .card-grid-bg {
     position: absolute;
     inset: 0;
-    background-color: var(--bg);
+    background-color: #111;
     background-image:
         linear-gradient(var(--grid-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
@@ -393,11 +393,11 @@ p {
     
     .hero-3d {
         width: 45%;
-        right: 3%;
+        right: 10%;
     }
     
     .hero-content {
-        max-width: 50%;
+        max-width: 55%;
     }
 }
 
@@ -407,33 +407,37 @@ p {
         padding: 12px 20px;
     }
 
-    .hero {
+    .hero, .portfolio{
         padding: 100px 20px 40px;
         min-height: auto;
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .hero .wrapper {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 40px;
+        flex-direction: row;
+        width: 100%;
+        gap: 0px;
     }
 
     .hero-content {
-        max-width: 100%;
-        align-items: center;
+        max-width: 52%;
+        width: 100%;
+        align-items: flex-start;
         gap: 32px;
     }
 
     .hero-identity {
-        flex-direction: column;
+        flex-direction: row;
         gap: 20px;
+    }
+
+    .hero-logo {
+        width: 48px;
     }
 
     .hero-3d {
         position: relative;
-        right: auto;
+        right: 10%;
         top: auto;
         transform: none;
         width: 90%;
@@ -443,7 +447,7 @@ p {
     }
     
     .hero-3d img {
-        width: 100%;
+        width: 200%;
     }
 
     /* Убираем фиксированную ширину кнопок, пусть тянутся */
@@ -459,6 +463,14 @@ p {
     
     .hero-actions .secondary-btns .btn {
         flex: 1 1 40%;
+    }
+
+    .portfolio{
+        padding: 80px 20px 60px;
+    }
+
+    .portfolio .section-subtitle {
+        margin-bottom: 42px;
     }
     
     .portfolio-grid {
@@ -480,13 +492,10 @@ p {
     }
 
     /* Шапка: убираем текст "Я иллюстратор", оставляем только иконку со стрелкой */
-    .nav-link p {
-        display: none;
-    }
     
     .nav-link svg {
-        width: 28px;
-        height: 28px;
+        width: 18px;
+        height: 18px;
     }
 
     /* Делаем кнопки в шапке только иконками */
@@ -504,11 +513,40 @@ p {
         height: 24px;
     }
 
-    /* Блок образования в hero */
-    .hero-edu {
+    .hero .wrapper {
+    flex-direction: column;
+    width: 100%;
+    gap: 0px;
+    }
+
+    .hero-content {
+    max-width: 100%;
+    width: 100%;
+    align-items: flex-start;
+    gap: 32px;
+    }
+
+    .hero-3d {
+        position: relative;
+        right: 3%;
+        top: auto;
+        transform: none;
+        width: 100%;
+        order: -1; /* Картинка под текстом */
+
+        display: flex;
+        justify-content: center;
         align-items: center;
     }
+
+    .hero-3d img {
+    width: 120%;
+    }
     
+    .hero-actions {
+        gap: 16px;
+    }
+
     /* Портфолио: карточки в 1 колонку */
     .portfolio-grid {
         grid-template-columns: 1fr;
