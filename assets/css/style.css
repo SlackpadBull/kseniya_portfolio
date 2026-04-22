@@ -296,7 +296,6 @@ p {
     transform: translateY(-50%);
     max-width: 650px;
     pointer-events: none;
-    overflow: hidden;  
 }
 
 .hero-3d img {
