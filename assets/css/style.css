@@ -315,11 +315,10 @@ p {
 .section-title {
     font-size: var(--fs-hero);
     font-weight: 700;
-    margin-bottom: 8px;
 }
 
 .section-subtitle {
-    margin-bottom: 82px;
+    margin-bottom: 64px;
 }
 
 .portfolio-grid {
