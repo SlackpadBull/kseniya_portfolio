@@ -404,7 +404,7 @@ p {
 /* Малые планшеты / Большие телефоны (800px и меньше) */
 @media (max-width: 800px) {
     header {
-        width: 100%;
+        width: 90%;
         padding: 12px 20px;
     }
 
@@ -485,15 +485,10 @@ p {
 
 /* Мобильные (600px и меньше) */
 @media (max-width: 600px) {
-    :root {
-        --grid-size: 32px;
-        --fs-hero: 42px;
-        --fs-body: 18px;
-        --gap-para: 12px;
+    header {
+        width: 90%;
     }
 
-    /* Шапка: убираем текст "Я иллюстратор", оставляем только иконку со стрелкой */
-    
     .nav-link svg {
         width: 18px;
         height: 18px;
