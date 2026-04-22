@@ -222,7 +222,7 @@ HERO
     max-width: 650px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 52px;
 }
 
 .hero-identity {
