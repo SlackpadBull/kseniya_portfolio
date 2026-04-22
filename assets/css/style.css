@@ -572,10 +572,6 @@ p {
         padding: 8px 16px;
     }
     
-    .btn {
-        padding: 10px 16px;
-    }
-    
     .hero-actions .secondary-btns {
         flex-direction: column;
     }
