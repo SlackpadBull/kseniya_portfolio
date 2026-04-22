@@ -289,7 +289,7 @@ p {
     width: 55%;
     top: 58%;
     transform: translateY(-50%);
-    max-width: 720px;
+    max-width: 650px;
     pointer-events: none;
 }
 
