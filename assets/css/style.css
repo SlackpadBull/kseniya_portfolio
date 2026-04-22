@@ -14,8 +14,8 @@
 
     --fs-hero: clamp(48px, 7vw, 82px);
     --fs-h2: clamp(32px, 4vw, 48px);
-    --fs-body: clamp(16px, 2vw, 30px);
-    --fs-btn: clamp(16px, 2vw, 26px);
+    --fs-body: clamp(18px, 1.5vw, 30px);
+    --fs-btn: clamp(18px, 1.5vw, 26px);
 
     --gap-para: 20px;
 
