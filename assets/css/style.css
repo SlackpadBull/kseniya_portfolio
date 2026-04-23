@@ -221,7 +221,7 @@ HERO
     max-width: 650px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 48px;
 }
 
 .hero-identity {
@@ -791,7 +791,7 @@ PROJECT CONTENT
     .btn {
         padding: 10px 16px;
     }
-
+    
     .hero-actions .secondary-btns {
         flex-direction: column;
     }
