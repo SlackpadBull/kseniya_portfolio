@@ -799,8 +799,4 @@ PROJECT CONTENT
     .btn {
         padding: 10px 16px;
     }
-    
-    .hero-actions .secondary-btns {
-        flex-direction: column;
-    }
 }
