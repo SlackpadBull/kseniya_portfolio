@@ -596,6 +596,7 @@ PROJECT CONTENT
     .hero-content {
         max-width: 55%;
     }
+    
 }
 
 /* Малые планшеты / Большие телефоны (800px и меньше) */
@@ -757,8 +758,18 @@ PROJECT CONTENT
         padding: 2px 12px;
     }
 
+    
     .viewer-container {
-        inset: 10px;
+        padding: 16px;
+    }
+    .viewer-navigation {
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
+        margin-top: 14px;
+    }
+    .viewer-navigation button svg {
+        width: 18px;
+        height: 18px;
     }
     .viewer-content {
         padding: 20px;
@@ -766,13 +777,10 @@ PROJECT CONTENT
     .viewer-close {
         top: 10px;
         right: 10px;
-        width: 40px;
-        height: 40px;
     }
     .viewer-prev,
     .viewer-next {
-        width: 40px;
-        height: 40px;
+        top: 95%;
     }
     .viewer-prev {
         left: 10px;
