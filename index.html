@@ -186,7 +186,7 @@
         </div>
 
         <!-- КАРТОЧКА 4 — котик-->
-        <div class="card" data-project="kitten">
+        <div class="card" data-project="kat">
           <div class="card-grid-bg"></div>
           <img src="./assets/img/kat.png" alt="Котик с тыквой" class="card-img"
             style="filter: sepia(0.5) hue-rotate(-20deg) saturate(1.8);" />
@@ -202,8 +202,9 @@ VIEWER
 ========================= -->
 <div class="viewer" id="viewer">
   <div class="viewer-backdrop"></div>
-
+  
   <div class="viewer-container">
+    
     <div class="viewer-navigation">
     <!-- Кнопка закрытия (крестик) -->
       <button class="viewer-close">
@@ -226,6 +227,8 @@ VIEWER
         </svg>
       </button>
     </div>
+
+    <div class="viewer-close-area"></div>
 
     <!-- Контент (скроллится) -->
     <div class="viewer-content" id="viewerContent">
@@ -260,7 +263,7 @@ TEMPLATES (редактируешь тут)
   </div>
 </template>
 
-<template id="project-kitten">
+<template id="project-kat">
   <div class="project">
     <!-- <h2>Котик</h2> -->
     <img src="./assets/img/kat_viewer.png" loading="lazy">

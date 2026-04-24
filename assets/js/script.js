@@ -71,7 +71,7 @@ CLOSE EVENTS
 document.querySelector('.viewer-close').onclick = closeViewer;
 
 viewer.addEventListener('click', e => {
-    if (e.target.classList.contains('viewer-backdrop')) {
+    if (e.target.classList.contains('viewer-close-area')) {
         closeViewer();
     }
 });
@@ -80,20 +80,6 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeViewer();
 });
 
-/* =========================
-SWIPE
-========================= */
-let startX = 0;
-
-viewer.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-});
-
-viewer.addEventListener('touchend', e => {
-    let dx = e.changedTouches[0].clientX - startX;
-    if (dx > 50) prev();
-    if (dx < -50) next();
-});
 
 /* =========================
 HASH HANDLING
@@ -118,3 +104,4 @@ viewer.addEventListener('touchmove', (e) => {
         e.preventDefault();
     }
 }, { passive: false });
+
