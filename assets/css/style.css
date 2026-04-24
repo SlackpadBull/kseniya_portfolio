@@ -566,13 +566,17 @@ PROJECT CONTENT
 ========================= */
 
 .project {
-    max-width: 900px;
+    max-width: 100%;
     margin: 0 auto;
+    padding: 0px;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 .project img {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 
