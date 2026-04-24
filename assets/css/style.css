@@ -776,7 +776,7 @@ PROJECT CONTENT
         height: 18px;
     }
     .viewer-content {
-        padding: 20px;
+        padding: 0px;
     }
     .viewer-close {
         top: 10px;
