@@ -102,18 +102,20 @@ header {
     border-bottom: 1px solid var(--gray);
     box-sizing: border-box;
 }
-header .wrapper, footer .wrapper {
+header .wrapper,
+footer .wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     max-width: 1400px;
     margin: 0 auto;
-    width: 100%; 
+    width: 100%;
 }
 /* «Я иллюстратор ↗» — подчёркивание цвета hover при наведении */
 
-.nav-link, .nav-link p {
+.nav-link,
+.nav-link p {
     font-size: var(--fs-btn);
     font-weight: 500;
     color: var(--white);
@@ -321,7 +323,8 @@ p {
 /* =============================================
 ПОРТФОЛИО
 ============================================= */
-.portfolio, .about {
+.portfolio,
+.about {
     padding: 80px 48px;
     width: 100%;
 }
@@ -433,8 +436,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
 
     overflow-y: auto;
     overflow-x: hidden;
-    
-
 }
 
 .viewer-navigation {
@@ -524,7 +525,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     /* Убираем стандартные стили кнопки */
     padding: 0;
     line-height: 1;
-    
 }
 .viewer-close:hover {
     background: var(--accent);
@@ -626,15 +626,11 @@ ABOUT ME
     font-weight: 900;
 }
 
-
-
-
 @media (max-width: 920px) {
     .wrapper-about {
         grid-template-columns: 1fr;
     }
 }
-
 
 /* =========================
 PROJECT CONTENT
@@ -659,7 +655,6 @@ PROJECT CONTENT
    EDUCATION
 ============================================= */
 
-
 /* =============================================
    АДАПТИВ (ИСПРАВЛЕННЫЙ)
 ============================================= */
@@ -678,7 +673,6 @@ PROJECT CONTENT
     .hero-content {
         max-width: 55%;
     }
-    
 }
 
 /* Малые планшеты / Большие телефоны (800px и меньше) */
@@ -757,6 +751,34 @@ PROJECT CONTENT
 
     .portfolio-grid {
         gap: 20px;
+    }
+
+    .about {
+        padding: 30px 20px 24px;
+    }
+
+    .about .wrapper {
+        gap: 8px;
+        margin-bottom: 64px;
+    }
+
+    .about .hero-name,
+    .about .section-title {
+        margin-bottom: 16px;
+    }
+
+    .about .section-subtitle {
+        margin-bottom: 28px;
+    }
+
+    footer {
+        padding: 32px 20px;
+    }
+
+    footer .wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
 
     .card-year {
@@ -840,7 +862,6 @@ PROJECT CONTENT
         padding: 2px 12px;
     }
 
-    
     .viewer-container {
         padding: 16px;
     }
