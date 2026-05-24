@@ -443,13 +443,13 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     position: fixed;
     width: calc(100% - 120px);
     height: calc(100% - 100px);
-    margin: 20px 0 20px 0;
     max-width: 940px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     display: flex;
+    padding-top: 16px;
     z-index: 2;
     /* игнорирование прокрутки */
     pointer-events: none;
@@ -897,7 +897,6 @@ PROJECT CONTENT
     .viewer-navigation {
         width: calc(100% - 48px);
         height: calc(100% - 48px);
-        margin-top: 14px;
     }
     .viewer-navigation button svg {
         width: 18px;
