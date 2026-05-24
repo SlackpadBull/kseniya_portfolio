@@ -596,8 +596,11 @@ body.no-scroll {
 ABOUT ME
 ========================= */
 
-.about {
-    padding: 80px 48px;
+.about .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-bottom: 148px;
 }
 
 .about > .hero-name {
