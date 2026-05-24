@@ -77,7 +77,6 @@ body {
     mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
 }
 
-<<<<<<< HEAD
 .grid-bg canvas {
     position: absolute;
     inset: 0;
@@ -86,8 +85,6 @@ body {
     pointer-events: none;
 }
 
-=======
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 /* =============================================
 ШАПКА
 ============================================= */
@@ -105,11 +102,7 @@ header {
     border-bottom: 1px solid var(--gray);
     box-sizing: border-box;
 }
-<<<<<<< HEAD
 header .wrapper, footer .wrapper {
-=======
-header .wrapper {
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -119,10 +112,7 @@ header .wrapper {
     width: 100%; 
 }
 /* «Я иллюстратор ↗» — подчёркивание цвета hover при наведении */
-<<<<<<< HEAD
 
-=======
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 .nav-link, .nav-link p {
     font-size: var(--fs-btn);
     font-weight: 500;
@@ -155,7 +145,6 @@ header .wrapper {
     gap: 12px;
 }
 
-<<<<<<< HEAD
 footer {
     padding: 24px 48px;
     max-width: 100vw;
@@ -163,8 +152,6 @@ footer {
     box-sizing: border-box;
 }
 
-=======
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 /* =============================================
 WRAPPER — ограничение ширины контента
 ============================================= */
@@ -233,11 +220,7 @@ HERO
 .hero {
     position: relative;
     min-height: 100%;
-<<<<<<< HEAD
     padding: 140px 48px 80px;
-=======
-    padding: 130px 48px 80px;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     display: flex;
     align-items: center;
     width: 100%;
@@ -323,11 +306,7 @@ p {
     align-items: center;
     right: 25%; /* Вместо 550px */
     width: 55%;
-<<<<<<< HEAD
     top: 64%;
-=======
-    top: 58%;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     transform: translateY(-50%);
     max-width: 650px;
     pointer-events: none;
@@ -342,11 +321,7 @@ p {
 /* =============================================
 ПОРТФОЛИО
 ============================================= */
-<<<<<<< HEAD
 .portfolio, .about {
-=======
-.portfolio {
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     padding: 80px 48px;
     width: 100%;
 }
@@ -467,11 +442,7 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     width: calc(100% - 120px);
     height: calc(100% - 100px);
     margin-top: 20px;
-<<<<<<< HEAD
     max-width: 940px;
-=======
-    max-width: 1360px;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     display: flex;
     align-items: center;
     justify-content: center;
@@ -503,11 +474,7 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     height: auto;
     background: #111;
     border-radius: 16px;
-<<<<<<< HEAD
     max-width: 800px;
-=======
-    max-width: 1200px;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     transform: scale(0.96);
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -626,7 +593,6 @@ body.no-scroll {
 }
 
 /* =========================
-<<<<<<< HEAD
 ABOUT ME
 ========================= */
 
@@ -668,8 +634,6 @@ ABOUT ME
 
 
 /* =========================
-=======
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 PROJECT CONTENT
 ========================= */
 
@@ -688,12 +652,9 @@ PROJECT CONTENT
     display: block;
 }
 
-<<<<<<< HEAD
 /* =============================================
    EDUCATION
 ============================================= */
-=======
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 
 
 /* =============================================

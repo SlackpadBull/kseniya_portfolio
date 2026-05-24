@@ -1,37 +1,22 @@
-<<<<<<< HEAD
 const viewer = document.getElementById('viewer')
 const viewerBody = document.getElementById('viewerBody')
 const cards = Array.from(document.querySelectorAll('.card'))
 
 let currentIndex = 0
-=======
-const viewer = document.getElementById('viewer');
-const viewerBody = document.getElementById('viewerBody');
-const cards = Array.from(document.querySelectorAll('.card'));
-
-let currentIndex = 0;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 
 /* =========================
 CLICK ON CARD
 ========================= */
 cards.forEach(card => {
     card.addEventListener('click', () => {
-<<<<<<< HEAD
         openProject(card.dataset.project)
     })
 })
-=======
-        openProject(card.dataset.project);
-    });
-});
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 
 /* =========================
 OPEN PROJECT
 ========================= */
 function openProject(slug, push = true) {
-<<<<<<< HEAD
     const template = document.getElementById('project-' + slug)
     if (!template) {
         console.warn(`Template for "${slug}" not found`)
@@ -49,25 +34,6 @@ function openProject(slug, push = true) {
     if (push) {
         // Используем hash вместо pushState для работы с file://
         location.hash = 'project/' + slug
-=======
-    const template = document.getElementById('project-' + slug);
-    if (!template) {
-        console.warn(`Template for "${slug}" not found`);
-        return;
-    }
-
-    currentIndex = cards.findIndex(c => c.dataset.project === slug);
-    
-    viewerBody.innerHTML = '';
-    viewerBody.appendChild(template.content.cloneNode(true));
-    
-    viewer.classList.add('active');
-    document.body.classList.add('no-scroll');
-
-    if (push) {
-        // Используем hash вместо pushState для работы с file://
-        location.hash = 'project/' + slug;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
     }
 }
 
@@ -75,28 +41,18 @@ function openProject(slug, push = true) {
 CLOSE VIEWER
 ========================= */
 function closeViewer() {
-<<<<<<< HEAD
     viewer.classList.remove('active')
     viewerBody.innerHTML = ''
     document.body.classList.remove('no-scroll')
 
     // Очищаем hash при закрытии
     location.hash = ''
-=======
-    viewer.classList.remove('active');
-    viewerBody.innerHTML = '';
-    document.body.classList.remove('no-scroll');
-    
-    // Очищаем hash при закрытии
-    location.hash = '';
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 }
 
 /* =========================
 NAVIGATION
 ========================= */
 function next() {
-<<<<<<< HEAD
     currentIndex = (currentIndex + 1) % cards.length
     openProject(cards[currentIndex].dataset.project)
 }
@@ -108,24 +64,10 @@ function prev() {
 
 document.querySelector('.viewer-next').onclick = next
 document.querySelector('.viewer-prev').onclick = prev
-=======
-    currentIndex = (currentIndex + 1) % cards.length;
-    openProject(cards[currentIndex].dataset.project);
-}
-
-function prev() {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    openProject(cards[currentIndex].dataset.project);
-}
-
-document.querySelector('.viewer-next').onclick = next;
-document.querySelector('.viewer-prev').onclick = prev;
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 
 /* =========================
 CLOSE EVENTS
 ========================= */
-<<<<<<< HEAD
 document.querySelector('.viewer-close').onclick = closeViewer
 
 viewer.addEventListener('click', e => {
@@ -137,45 +79,21 @@ viewer.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeViewer()
 })
-=======
-document.querySelector('.viewer-close').onclick = closeViewer;
-
-viewer.addEventListener('click', e => {
-    if (e.target.classList.contains('viewer-close-area')) {
-        closeViewer();
-    }
-});
-
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeViewer();
-});
-
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
 
 /* =========================
 HASH HANDLING
 ========================= */
 function handleHash() {
-<<<<<<< HEAD
     const hash = location.hash.slice(1) // убираем #
 
     if (hash.startsWith('project/')) {
         const slug = hash.split('/')[1]
         if (slug) {
             openProject(slug, false)
-=======
-    const hash = location.hash.slice(1); // убираем #
-    
-    if (hash.startsWith('project/')) {
-        const slug = hash.split('/')[1];
-        if (slug) {
-            openProject(slug, false);
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
         }
     }
 }
 
-<<<<<<< HEAD
 window.addEventListener('hashchange', handleHash)
 window.addEventListener('load', handleHash)
 
@@ -313,15 +231,3 @@ GRID GLOW DOTS
     hero.addEventListener('pointerleave', handleLeave)
     resizeCanvas()
 })()
-=======
-window.addEventListener('hashchange', handleHash);
-window.addEventListener('load', handleHash);
-
-// Блокировка скролла фона при касаниях вне модального контента
-viewer.addEventListener('touchmove', (e) => {
-    if (!e.target.closest('.viewer-content')) {
-        e.preventDefault();
-    }
-}, { passive: false });
-
->>>>>>> 5ab2b45ab86a0a3dfe4ee599898ada84b70272f8
