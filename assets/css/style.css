@@ -124,7 +124,8 @@ footer .wrapper {
     align-items: center;
     gap: 6px;
     position: relative;
-    white-space: nowrap;
+    white-space: normal;
+    flex-wrap: wrap;
 }
 
 .nav-link::after {
@@ -810,6 +811,20 @@ PROJECT CONTENT
         margin: 0;
         width: 24px;
         height: 24px;
+    }
+
+    footer {
+        padding: 24px 16px;
+    }
+
+    footer .wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    footer p {
+        font-size: 0.95rem;
     }
 
     .hero .wrapper {
