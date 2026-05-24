@@ -443,11 +443,13 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     position: fixed;
     width: calc(100% - 120px);
     height: calc(100% - 100px);
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
     max-width: 940px;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    display: flex;
     z-index: 2;
     /* игнорирование прокрутки */
     pointer-events: none;
@@ -466,8 +468,22 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     cursor: pointer;
 }
 
-.viewer-navigation button {
+.viewer-navigation button,
+.viewer-navigation a {
     pointer-events: auto;
+}
+
+.viewer-contact {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    max-width: 768px;
+}
+
+.viewer-close-container {
+    display: flex;
+    width: 100%;
+    justify-content: right;
 }
 
 .viewer-content {
@@ -504,9 +520,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
 
 /* Кнопка закрытия (крестик) */
 .viewer-close {
-    position: absolute;
-    top: 0px;
-    right: 0px;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -538,11 +551,16 @@ VIEWER (ИСПРАВЛЕННЫЙ)
 }
 
 /* Стрелки навигации */
+
+.arrows {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .viewer-prev,
 .viewer-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -561,12 +579,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     z-index: 10;
     padding: 0;
     line-height: 1;
-}
-.viewer-prev {
-    left: 0px;
-}
-.viewer-next {
-    right: 0px;
 }
 .viewer-prev:hover,
 .viewer-next:hover {
@@ -891,22 +903,18 @@ PROJECT CONTENT
         width: 18px;
         height: 18px;
     }
+
+    .viewer-contact {
+    justify-content: center;
+    }
+
     .viewer-content {
         padding: 0px;
     }
-    .viewer-close {
-        top: 10px;
-        right: 10px;
-    }
-    .viewer-prev,
-    .viewer-next {
-        top: 95%;
-    }
-    .viewer-prev {
-        left: 10px;
-    }
-    .viewer-next {
-        right: 10px;
+
+    .arrows {
+        position: absolute;
+        bottom: 0px;
     }
 }
 
