@@ -510,9 +510,9 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(8px);
-    border: 1px solid var(--gray);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
     font-size: 24px;
     display: flex;
@@ -546,9 +546,9 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(8px);
-    border: 1px solid var(--gray);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
     font-size: 24px;
     display: flex;
@@ -823,7 +823,9 @@ PROJECT CONTENT
         gap: 12px;
     }
 
-    footer p {
+    footer p,
+    footer .nav-link,
+    footer .nav-link p {
         font-size: 0.95rem;
     }
 
