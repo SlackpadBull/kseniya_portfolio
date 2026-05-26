@@ -44,7 +44,7 @@ body {
 
 html,
 .viewer-container {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 body {
@@ -934,5 +934,24 @@ PROJECT CONTENT
 
     .btn {
         padding: 10px 16px;
+    }
+}
+
+/* Плавный скролл — только если пользователь не настроил "уменьшить движение" */
+@media (prefers-reduced-motion: no-preference) {
+    html,
+    .viewer-container {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Уважаем настройки доступности: отключаем анимации */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
