@@ -144,8 +144,11 @@ GRID GLOW DOTS
     let mouse = null
     let frameScheduled = false
  
+    let cachedRect
+
     function resizeCanvas() {
-        const rect = gridBg.getBoundingClientRect()
+        cachedRect = gridBg.getBoundingClientRect()
+        const rect = cachedRect
         const ratio = window.devicePixelRatio || 1
         canvas.width = rect.width * ratio
         canvas.height = rect.height * ratio
@@ -168,7 +171,7 @@ GRID GLOW DOTS
         clearCanvas()
         if (!mouse) return
  
-        const rect = gridBg.getBoundingClientRect()
+        const rect = cachedRect
         const x = mouse.x - rect.left
         const y = mouse.y - rect.top
         const startCol = Math.max(0, Math.floor((x - glowRadius) / gridSize))
