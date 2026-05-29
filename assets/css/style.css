@@ -217,6 +217,10 @@ WRAPPER — ограничение ширины контента
     flex-shrink: 0;
 }
 
+.btn-language {
+    padding: 12px 16px 12px 16px;
+}
+
 /* =============================================
 HERO
 ============================================= */
@@ -324,6 +328,11 @@ p {
 /* =============================================
 ПОРТФОЛИО
 ============================================= */
+
+.portfolio .hero-name {
+    margin-bottom: 32px;
+}
+
 .portfolio,
 .about {
     padding: 80px 48px;
@@ -633,7 +642,7 @@ ABOUT ME
 .wrapper-about {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 48px;
+    gap: 64px;
     align-items: flex-start;
 }
 
