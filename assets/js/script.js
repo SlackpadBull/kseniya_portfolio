@@ -18,6 +18,9 @@ cards.forEach(card => {
 OPEN PROJECT
 ========================= */
 function openProject(slug, push = true) {
+
+    ym(109520628, 'reachGoal', `project_${slug}`);
+    
     // Сохраняем позицию прокрутки до открытия
     savedScrollY = window.scrollY
  
