@@ -275,6 +275,12 @@ HERO
     gap: var(--gap-para);
 }
 
+.edu-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 p {
     font-size: var(--fs-body);
     font-weight: 500;
