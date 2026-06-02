@@ -7,6 +7,22 @@ let scrollY = 0
 let isViewerOpen = false
 
 // =========================
+// CACHE (FAST OPEN)
+// =========================
+const projectCache = {}
+
+function preloadProjects() {
+    cards.forEach(card => {
+        const slug = card.dataset.project
+        const template = document.getElementById('project-' + slug)
+        if (!template) return
+
+        // сохраняем HTML (самый быстрый вариант)
+        projectCache[slug] = template.innerHTML
+    })
+}
+
+// =========================
 // SCROLL LOCK
 // =========================
 function lockScroll() {
@@ -30,18 +46,22 @@ function unlockScroll() {
 }
 
 // =========================
-// RENDER PROJECT (CACHE SAFE)
+// RENDER
 // =========================
 function renderProject(slug) {
-    const template = document.getElementById('project-' + slug)
-    if (!template) return
+    viewerBody.innerHTML = projectCache[slug] || ''
 
-    viewerBody.innerHTML = ''
-    viewerBody.appendChild(template.content.cloneNode(true))
+    // fallback (если нет кеша)
+    if (!projectCache[slug]) {
+        const template = document.getElementById('project-' + slug)
+        if (template) {
+            viewerBody.innerHTML = template.innerHTML
+        }
+    }
 }
 
 // =========================
-// OPEN PROJECT
+// OPEN
 // =========================
 function openProject(slug, push = true) {
     ym(109520628, 'reachGoal', `project_${slug}`)
@@ -63,7 +83,7 @@ function openProject(slug, push = true) {
 }
 
 // =========================
-// SWITCH PROJECT
+// SWITCH
 // =========================
 function switchProject(slug) {
     ym(109520628, 'reachGoal', `project_${slug}`)
@@ -87,7 +107,7 @@ function prev() {
 }
 
 // =========================
-// CLOSE VIEWER
+// CLOSE
 // =========================
 function closeViewer() {
     viewer.classList.remove('active')
@@ -122,7 +142,7 @@ viewer.addEventListener('click', e => {
 })
 
 // =========================
-// KEYBOARD NAVIGATION
+// KEYBOARD
 // =========================
 document.addEventListener('keydown', e => {
     if (!viewer.classList.contains('active')) return
@@ -134,7 +154,7 @@ document.addEventListener('keydown', e => {
 })
 
 // =========================
-// BROWSER BACK (IMPORTANT FIX)
+// BACK BUTTON FIX (MOBILE OK)
 // =========================
 window.addEventListener('popstate', () => {
     const hash = location.hash.slice(1)
@@ -164,11 +184,12 @@ viewer.addEventListener(
 )
 
 // =========================
-// INITIAL LOAD ROUTING
+// INIT
 // =========================
-window.addEventListener('load', () => {
-    const hash = location.hash.slice(1)
+window.addEventListener('DOMContentLoaded', () => {
+    preloadProjects()
 
+    const hash = location.hash.slice(1)
     if (hash.startsWith('project/')) {
         const slug = hash.split('/')[1]
         openProject(slug, false)
@@ -176,7 +197,7 @@ window.addEventListener('load', () => {
 })
 
 /* =========================
-GRID GLOW DOTS (без изменений)
+GRID GLOW (без изменений)
 ========================= */
 ;(function () {
     const hero = document.querySelector('.hero')
@@ -192,6 +213,7 @@ GRID GLOW DOTS (без изменений)
     const ctx = canvas.getContext('2d')
     const gridSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size')) || 64
     const glowRadius = 160
+
     let mouse = null
     let frameScheduled = false
     let cachedRect
