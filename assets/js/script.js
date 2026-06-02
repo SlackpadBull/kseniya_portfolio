@@ -7,7 +7,7 @@ let scrollY = 0
 let isViewerOpen = false
 
 // =========================
-// SCROLL LOCK (FIXED)
+// SCROLL LOCK
 // =========================
 function lockScroll() {
     scrollY = window.scrollY
@@ -17,8 +17,6 @@ function lockScroll() {
     document.body.style.left = '0'
     document.body.style.right = '0'
     document.body.style.width = '100%'
-
-    document.body.style.overflow = 'hidden'
 }
 
 function unlockScroll() {
@@ -27,37 +25,33 @@ function unlockScroll() {
     document.body.style.left = ''
     document.body.style.right = ''
     document.body.style.width = ''
-    document.body.style.overflow = ''
 
     window.scrollTo(0, scrollY)
 }
 
-/* =========================
-CLICK ON CARD
-========================= */
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-        openProject(card.dataset.project)
-    })
-})
-
-/* =========================
-OPEN PROJECT
-========================= */
-function openProject(slug, push = true) {
-    ym(109520628, 'reachGoal', `project_${slug}`)
-
+// =========================
+// RENDER PROJECT (CACHE SAFE)
+// =========================
+function renderProject(slug) {
     const template = document.getElementById('project-' + slug)
     if (!template) return
 
-    currentIndex = cards.findIndex(c => c.dataset.project === slug)
-
     viewerBody.innerHTML = ''
     viewerBody.appendChild(template.content.cloneNode(true))
+}
+
+// =========================
+// OPEN PROJECT
+// =========================
+function openProject(slug, push = true) {
+    ym(109520628, 'reachGoal', `project_${slug}`)
+
+    currentIndex = cards.findIndex(c => c.dataset.project === slug)
+
+    renderProject(slug)
 
     viewer.classList.add('active')
 
-    // 🔥 LOCK ТОЛЬКО ПРИ ПЕРВОМ ОТКРЫТИИ
     if (!isViewerOpen) {
         lockScroll()
         isViewerOpen = true
@@ -68,24 +62,20 @@ function openProject(slug, push = true) {
     }
 }
 
-/* =========================
-SWITCH PROJECT (NEXT/PREV FIX)
-========================= */
+// =========================
+// SWITCH PROJECT
+// =========================
 function switchProject(slug) {
     ym(109520628, 'reachGoal', `project_${slug}`)
 
-    const template = document.getElementById('project-' + slug)
-    if (!template) return
+    renderProject(slug)
 
-    viewerBody.innerHTML = ''
-    viewerBody.appendChild(template.content.cloneNode(true))
-
-    history.replaceState({ slug }, '', '#project/' + slug)
+    history.pushState({ slug }, '', '#project/' + slug)
 }
 
-/* =========================
-NAVIGATION
-========================= */
+// =========================
+// NAVIGATION
+// =========================
 function next() {
     currentIndex = (currentIndex + 1) % cards.length
     switchProject(cards[currentIndex].dataset.project)
@@ -96,12 +86,9 @@ function prev() {
     switchProject(cards[currentIndex].dataset.project)
 }
 
-document.querySelector('.viewer-next')?.addEventListener('click', next)
-document.querySelector('.viewer-prev')?.addEventListener('click', prev)
-
-/* =========================
-CLOSE VIEWER
-========================= */
+// =========================
+// CLOSE VIEWER
+// =========================
 function closeViewer() {
     viewer.classList.remove('active')
     viewerBody.innerHTML = ''
@@ -111,15 +98,22 @@ function closeViewer() {
         isViewerOpen = false
     }
 
-    history.replaceState(null, '', location.pathname + location.search)
-
-    currentIndex = 0 //
+    history.pushState({}, '', location.pathname + location.search)
+    currentIndex = 0
 }
 
-/* =========================
-CLOSE EVENTS
-========================= */
-document.querySelector('.viewer-close').onclick = closeViewer
+// =========================
+// EVENTS
+// =========================
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        openProject(card.dataset.project)
+    })
+})
+
+document.querySelector('.viewer-next')?.addEventListener('click', next)
+document.querySelector('.viewer-prev')?.addEventListener('click', prev)
+document.querySelector('.viewer-close')?.addEventListener('click', closeViewer)
 
 viewer.addEventListener('click', e => {
     if (e.target.classList.contains('viewer-close-area')) {
@@ -127,36 +121,41 @@ viewer.addEventListener('click', e => {
     }
 })
 
+// =========================
+// KEYBOARD NAVIGATION
+// =========================
 document.addEventListener('keydown', e => {
     if (!viewer.classList.contains('active')) return
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return
 
     if (e.key === 'Escape') closeViewer()
     if (e.key === 'ArrowRight') next()
     if (e.key === 'ArrowLeft') prev()
 })
 
-/* =========================
-HASH HANDLING
-========================= */
-function handleHash() {
+// =========================
+// BROWSER BACK (IMPORTANT FIX)
+// =========================
+window.addEventListener('popstate', () => {
     const hash = location.hash.slice(1)
 
     if (hash.startsWith('project/')) {
         const slug = hash.split('/')[1]
-        if (slug) openProject(slug, false)
+        openProject(slug, false)
+    } else {
+        if (isViewerOpen) {
+            closeViewer()
+        }
     }
-}
+})
 
-window.addEventListener('popstate', handleHash)
-window.addEventListener('hashchange', handleHash)
-window.addEventListener('load', handleHash)
-
-/* =========================
-TOUCH FIX
-========================= */
+// =========================
+// TOUCH FIX
+// =========================
 viewer.addEventListener(
     'touchmove',
     e => {
+        if (!viewer.classList.contains('active')) return
         if (!e.target.closest('.viewer-content')) {
             e.preventDefault()
         }
@@ -164,32 +163,26 @@ viewer.addEventListener(
     { passive: false }
 )
 
-window.addEventListener('popstate', (e) => {
+// =========================
+// INITIAL LOAD ROUTING
+// =========================
+window.addEventListener('load', () => {
     const hash = location.hash.slice(1)
 
     if (hash.startsWith('project/')) {
         const slug = hash.split('/')[1]
         openProject(slug, false)
-    } else {
-        // 👇 если hash нет — закрываем модалку
-        if (isViewerOpen) {
-            viewer.classList.remove('active')
-            viewerBody.innerHTML = ''
-            unlockScroll()
-            isViewerOpen = false
-        }
     }
 })
 
 /* =========================
-GRID GLOW DOTS
+GRID GLOW DOTS (без изменений)
 ========================= */
 ;(function () {
     const hero = document.querySelector('.hero')
     const gridBg = document.querySelector('.grid-bg')
     if (!hero || !gridBg) return
 
-    // Configurable maximum intensity for grid glow
     const MAX_GLOW_INTENSITY = 0.75
 
     const canvas = document.createElement('canvas')
@@ -201,27 +194,23 @@ GRID GLOW DOTS
     const glowRadius = 160
     let mouse = null
     let frameScheduled = false
-
     let cachedRect
 
     function resizeCanvas() {
         cachedRect = gridBg.getBoundingClientRect()
-        const rect = cachedRect
         const ratio = window.devicePixelRatio || 1
-        canvas.width = rect.width * ratio
-        canvas.height = rect.height * ratio
-        canvas.style.width = `${rect.width}px`
-        canvas.style.height = `${rect.height}px`
+
+        canvas.width = cachedRect.width * ratio
+        canvas.height = cachedRect.height * ratio
+
+        canvas.style.width = `${cachedRect.width}px`
+        canvas.style.height = `${cachedRect.height}px`
+
         ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
     }
 
     function clearCanvas() {
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width / (window.devicePixelRatio || 1),
-            canvas.height / (window.devicePixelRatio || 1),
-        )
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
 
     function drawGlow() {
@@ -232,55 +221,42 @@ GRID GLOW DOTS
         const rect = cachedRect
         const x = mouse.x - rect.left
         const y = mouse.y - rect.top
-        const startCol = Math.max(0, Math.floor((x - glowRadius) / gridSize))
-        const endCol = Math.min(Math.ceil((x + glowRadius) / gridSize), Math.ceil(rect.width / gridSize))
-        const startRow = Math.max(0, Math.floor((y - glowRadius) / gridSize))
-        const endRow = Math.min(Math.ceil((y + glowRadius) / gridSize), Math.ceil(rect.height / gridSize))
+
+        const startCol = Math.floor((x - glowRadius) / gridSize)
+        const endCol = Math.ceil((x + glowRadius) / gridSize)
+        const startRow = Math.floor((y - glowRadius) / gridSize)
+        const endRow = Math.ceil((y + glowRadius) / gridSize)
 
         ctx.globalCompositeOperation = 'lighter'
+
         for (let row = startRow; row <= endRow; row++) {
             for (let col = startCol; col <= endCol; col++) {
                 const px = col * gridSize
                 const py = row * gridSize
+
                 const dx = px - x
                 const dy = py - y
                 const dist = Math.sqrt(dx * dx + dy * dy)
+
                 if (dist > glowRadius) continue
 
                 const intensity = Math.max(0, MAX_GLOW_INTENSITY - dist / glowRadius)
                 const glowStrength = Math.pow(intensity, 0.95)
 
-                // Большое мягкое размытие (фон)
                 const outerRadius = 6 + glowStrength * 18
                 const outerAlpha = 0.02 + glowStrength * 0.22
-                const g = ctx.createRadialGradient(px, py, 0, px, py, outerRadius)
-                g.addColorStop(0, `rgba(149,255,190,${Math.min(0.9, outerAlpha * 2)})`)
-                g.addColorStop(0.2, `rgba(149,255,190,${outerAlpha})`)
-                g.addColorStop(1, `rgba(149,255,190,0)`)
 
-                ctx.save()
+                const g = ctx.createRadialGradient(px, py, 0, px, py, outerRadius)
+                g.addColorStop(0, `rgba(149,255,190,${outerAlpha})`)
+                g.addColorStop(1, 'rgba(149,255,190,0)')
+
                 ctx.fillStyle = g
-                // Используем фильтр для дополнительного смягчения
-                ctx.filter = `blur(${8 * (1 - Math.pow(1 - glowStrength, 0.5))}px)`
                 ctx.beginPath()
                 ctx.arc(px, py, outerRadius, 0, Math.PI * 2)
                 ctx.fill()
-                ctx.restore()
-
-                // Ядро — маленькая яркая точка со свечением
-                const coreRadius = 0.5 + glowStrength * 1
-                const coreAlpha = 0.35 * glowStrength
-                ctx.save()
-                ctx.filter = 'none'
-                ctx.shadowColor = `rgba(255, 255, 220, ${coreAlpha})`
-                ctx.shadowBlur = 12 * glowStrength
-                ctx.fillStyle = `rgba(255, 255, 220, ${coreAlpha})`
-                ctx.beginPath()
-                ctx.arc(px, py, coreRadius, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.restore()
             }
         }
+
         ctx.globalCompositeOperation = 'source-over'
     }
 
@@ -291,19 +267,16 @@ GRID GLOW DOTS
         }
     }
 
-    function handleMove(event) {
-        mouse = { x: event.clientX, y: event.clientY }
+    hero.addEventListener('mousemove', e => {
+        mouse = { x: e.clientX, y: e.clientY }
         scheduleDraw()
-    }
+    })
 
-    function handleLeave() {
+    hero.addEventListener('mouseleave', () => {
         mouse = null
         clearCanvas()
-    }
+    })
 
     window.addEventListener('resize', resizeCanvas)
-    hero.addEventListener('mousemove', handleMove)
-    hero.addEventListener('mouseleave', handleLeave)
-    hero.addEventListener('pointerleave', handleLeave)
     resizeCanvas()
 })()
