@@ -795,8 +795,8 @@ PROJECT CONTENT
     }
 
     .about .wrapper {
-        gap: 8px;
-        margin-bottom: 64px;
+        gap: 32px;
+        margin-bottom: 32px;
     }
 
     .about .hero-name,
@@ -938,6 +938,11 @@ PROJECT CONTENT
     .arrows {
         position: absolute;
         bottom: 0px;
+    }
+
+    .edu-hero {
+        gap: 4px;
+        margin-bottom: 24px;
     }
 }
 
