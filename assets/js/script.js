@@ -17,6 +17,8 @@ function lockScroll() {
     document.body.style.left = '0'
     document.body.style.right = '0'
     document.body.style.width = '100%'
+
+    document.body.style.overflow = 'hidden'
 }
 
 function unlockScroll() {
@@ -25,6 +27,7 @@ function unlockScroll() {
     document.body.style.left = ''
     document.body.style.right = ''
     document.body.style.width = ''
+    document.body.style.overflow = ''
 
     window.scrollTo(0, scrollY)
 }
@@ -93,8 +96,8 @@ function prev() {
     switchProject(cards[currentIndex].dataset.project)
 }
 
-document.querySelector('.viewer-next').onclick = next
-document.querySelector('.viewer-prev').onclick = prev
+document.querySelector('.viewer-next')?.addEventListener('click', next)
+document.querySelector('.viewer-prev')?.addEventListener('click', prev)
 
 /* =========================
 CLOSE VIEWER
@@ -109,6 +112,8 @@ function closeViewer() {
     }
 
     history.replaceState(null, '', location.pathname + location.search)
+
+    currentIndex = 0 //
 }
 
 /* =========================
@@ -139,6 +144,7 @@ function handleHash() {
 }
 
 window.addEventListener('popstate', handleHash)
+window.addEventListener('hashchange', handleHash)
 window.addEventListener('load', handleHash)
 
 /* =========================
