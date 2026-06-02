@@ -620,11 +620,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
     transform: rotate(180deg);
 }
 
-/* Блокировка скролла body при открытом viewer */
-body.no-scroll {
-    overflow: hidden;
-}
-
 /* =========================
 ABOUT ME
 ========================= */

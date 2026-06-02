@@ -5,6 +5,31 @@ const cards = Array.from(document.querySelectorAll('.card'))
 let currentIndex = 0
 let savedScrollY = 0
  
+// =========================
+// SCROLL LOCK (ВСТАВИТЬ СЮДА)
+// =========================
+let scrollY = 0;
+
+function lockScroll() {
+    scrollY = window.scrollY;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+}
+
+function unlockScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+
+    window.scrollTo(0, scrollY);
+}
+
 /* =========================
 CLICK ON CARD
 ========================= */
@@ -36,7 +61,7 @@ function openProject(slug, push = true) {
     viewerBody.appendChild(template.content.cloneNode(true))
  
     viewer.classList.add('active')
-    document.body.classList.add('no-scroll')
+    lockScroll()
  
     if (push) {
         // pushState не вызывает прокрутку (в отличие от location.hash)
@@ -54,9 +79,6 @@ CLOSE VIEWER
 function closeViewer() {
     viewer.classList.remove('active')
     viewerBody.innerHTML = ''
-
-    const scrollY = Math.abs(parseInt(document.body.style.top || '0'))
-    document.body.classList.remove('no-scroll')
  
     // Убираем hash без прокрутки
     try {
@@ -64,6 +86,8 @@ function closeViewer() {
     } catch (e) {
         history.replaceState(null, '', '#')
     }
+
+    unlockScroll()
  
 }
  
