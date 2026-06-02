@@ -7,18 +7,32 @@ let scrollY = 0
 let isViewerOpen = false
 
 // =========================
-// CACHE (FAST OPEN)
+// IMAGE CACHE (ВАЖНО)
 // =========================
-const projectCache = {}
+const imageCache = {}
 
-function preloadProjects() {
-    cards.forEach(card => {
-        const slug = card.dataset.project
-        const template = document.getElementById('project-' + slug)
-        if (!template) return
+// =========================
+// PRELOAD ВСЕХ КАРТИНОК (РЕАЛЬНО УБИРАЕТ ЛАГ)
+// =========================
+function preloadAllImages() {
+    const templates = document.querySelectorAll('template[id^="project-"]')
 
-        // сохраняем HTML (самый быстрый вариант)
-        projectCache[slug] = template.innerHTML
+    templates.forEach(tpl => {
+        const div = document.createElement('div')
+        div.innerHTML = tpl.innerHTML
+
+        const imgs = div.querySelectorAll('img')
+
+        imgs.forEach(img => {
+            const src = img.getAttribute('src')
+            if (!src || imageCache[src]) return
+
+            const image = new Image()
+            image.src = src
+
+            // сохраняем в кеш (держим в памяти браузера)
+            imageCache[src] = image
+        })
     })
 }
 
@@ -46,18 +60,14 @@ function unlockScroll() {
 }
 
 // =========================
-// RENDER
+// RENDER (БЫСТРЫЙ)
 // =========================
 function renderProject(slug) {
-    viewerBody.innerHTML = projectCache[slug] || ''
+    const template = document.getElementById('project-' + slug)
+    if (!template) return
 
-    // fallback (если нет кеша)
-    if (!projectCache[slug]) {
-        const template = document.getElementById('project-' + slug)
-        if (template) {
-            viewerBody.innerHTML = template.innerHTML
-        }
-    }
+    // важно: innerHTML быстрее cloneNode для твоего случая
+    viewerBody.innerHTML = template.innerHTML
 }
 
 // =========================
@@ -154,7 +164,7 @@ document.addEventListener('keydown', e => {
 })
 
 // =========================
-// BACK BUTTON FIX (MOBILE OK)
+// BACK BUTTON FIX
 // =========================
 window.addEventListener('popstate', () => {
     const hash = location.hash.slice(1)
@@ -163,9 +173,7 @@ window.addEventListener('popstate', () => {
         const slug = hash.split('/')[1]
         openProject(slug, false)
     } else {
-        if (isViewerOpen) {
-            closeViewer()
-        }
+        if (isViewerOpen) closeViewer()
     }
 })
 
@@ -184,10 +192,10 @@ viewer.addEventListener(
 )
 
 // =========================
-// INIT
+// INIT (ВАЖНО — preload тут)
 // =========================
 window.addEventListener('DOMContentLoaded', () => {
-    preloadProjects()
+    preloadAllImages()
 
     const hash = location.hash.slice(1)
     if (hash.startsWith('project/')) {
