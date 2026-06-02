@@ -7,33 +7,39 @@ let scrollY = 0
 let isViewerOpen = false
 
 // =========================
-// IMAGE CACHE (ВАЖНО)
+// IMAGE CACHE (decoded)
 // =========================
 const imageCache = {}
 
 // =========================
-// PRELOAD ВСЕХ КАРТИНОК (РЕАЛЬНО УБИРАЕТ ЛАГ)
+// PRELOAD + DECODE (ВАЖНО)
 // =========================
-function preloadAllImages() {
+async function preloadImages() {
     const templates = document.querySelectorAll('template[id^="project-"]')
 
-    templates.forEach(tpl => {
+    for (const tpl of templates) {
         const div = document.createElement('div')
         div.innerHTML = tpl.innerHTML
 
         const imgs = div.querySelectorAll('img')
 
-        imgs.forEach(img => {
+        for (const img of imgs) {
             const src = img.getAttribute('src')
-            if (!src || imageCache[src]) return
+            if (!src || imageCache[src]) continue
 
             const image = new Image()
             image.src = src
 
-            // сохраняем в кеш (держим в памяти браузера)
+            // ждём загрузку + декодирование (максимальный прогрев)
+            try {
+                await image.decode()
+            } catch (e) {
+                // fallback если decode не поддерживается
+            }
+
             imageCache[src] = image
-        })
-    })
+        }
+    }
 }
 
 // =========================
@@ -60,13 +66,12 @@ function unlockScroll() {
 }
 
 // =========================
-// RENDER (БЫСТРЫЙ)
+// RENDER (FAST)
 // =========================
 function renderProject(slug) {
     const template = document.getElementById('project-' + slug)
     if (!template) return
 
-    // важно: innerHTML быстрее cloneNode для твоего случая
     viewerBody.innerHTML = template.innerHTML
 }
 
@@ -164,7 +169,7 @@ document.addEventListener('keydown', e => {
 })
 
 // =========================
-// BACK BUTTON FIX
+// BACK BUTTON
 // =========================
 window.addEventListener('popstate', () => {
     const hash = location.hash.slice(1)
@@ -192,10 +197,10 @@ viewer.addEventListener(
 )
 
 // =========================
-// INIT (ВАЖНО — preload тут)
+// INIT (PRELOAD HERE)
 // =========================
-window.addEventListener('DOMContentLoaded', () => {
-    preloadAllImages()
+window.addEventListener('DOMContentLoaded', async () => {
+    await preloadImages()
 
     const hash = location.hash.slice(1)
     if (hash.startsWith('project/')) {
