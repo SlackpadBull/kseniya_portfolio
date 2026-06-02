@@ -623,10 +623,6 @@ VIEWER (ИСПРАВЛЕННЫЙ)
 /* Блокировка скролла body при открытом viewer */
 body.no-scroll {
     overflow: hidden;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
 }
 
 /* =========================
@@ -958,12 +954,12 @@ PROJECT CONTENT
 }
 
 /* Плавный скролл — только если пользователь не настроил "уменьшить движение" */
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
     html,
     .viewer-container {
         scroll-behavior: smooth;
     }
-}
+} */
 
 /* Уважаем настройки доступности: отключаем анимации */
 @media (prefers-reduced-motion: reduce) {

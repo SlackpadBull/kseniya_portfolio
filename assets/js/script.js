@@ -54,6 +54,8 @@ CLOSE VIEWER
 function closeViewer() {
     viewer.classList.remove('active')
     viewerBody.innerHTML = ''
+
+    const scrollY = Math.abs(parseInt(document.body.style.top || '0'))
     document.body.classList.remove('no-scroll')
  
     // Убираем hash без прокрутки
@@ -63,8 +65,6 @@ function closeViewer() {
         history.replaceState(null, '', '#')
     }
  
-    // Восстанавливаем позицию прокрутки
-    window.scrollTo(0, savedScrollY)
 }
  
 /* =========================
