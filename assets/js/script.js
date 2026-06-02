@@ -128,7 +128,11 @@ viewer.addEventListener('click', e => {
 })
 
 document.addEventListener('keydown', e => {
+    if (!viewer.classList.contains('active')) return
+
     if (e.key === 'Escape') closeViewer()
+    if (e.key === 'ArrowRight') next()
+    if (e.key === 'ArrowLeft') prev()
 })
 
 /* =========================
@@ -159,6 +163,23 @@ viewer.addEventListener(
     },
     { passive: false }
 )
+
+window.addEventListener('popstate', (e) => {
+    const hash = location.hash.slice(1)
+
+    if (hash.startsWith('project/')) {
+        const slug = hash.split('/')[1]
+        openProject(slug, false)
+    } else {
+        // 👇 если hash нет — закрываем модалку
+        if (isViewerOpen) {
+            viewer.classList.remove('active')
+            viewerBody.innerHTML = ''
+            unlockScroll()
+            isViewerOpen = false
+        }
+    }
+})
 
 /* =========================
 GRID GLOW DOTS
