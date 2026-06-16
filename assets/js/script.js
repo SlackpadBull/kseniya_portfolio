@@ -1,5 +1,6 @@
 const viewer = document.getElementById('viewer')
 const viewerBody = document.getElementById('viewerBody')
+const viewerContainer = document.querySelector('.viewer-container')
 const cards = Array.from(document.querySelectorAll('.card'))
 
 let currentIndex = 0
@@ -73,6 +74,10 @@ function renderProject(slug) {
     if (!template) return
 
     viewerBody.innerHTML = template.innerHTML
+    // Сбросить скролл после рендера
+    requestAnimationFrame(() => {
+        viewerContainer.scrollTop = 0
+    })
 }
 
 // =========================
@@ -86,6 +91,11 @@ function openProject(slug, push = true) {
     renderProject(slug)
 
     viewer.classList.add('active')
+    
+    // Гарантированный сброс скролла при открытии
+    requestAnimationFrame(() => {
+        viewerContainer.scrollTop = 0
+    })
 
     if (!isViewerOpen) {
         lockScroll()
