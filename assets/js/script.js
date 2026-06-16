@@ -91,7 +91,7 @@ function openProject(slug, push = true) {
     renderProject(slug)
 
     viewer.classList.add('active')
-    
+
     // Гарантированный сброс скролла при открытии
     requestAnimationFrame(() => {
         viewerContainer.scrollTop = 0
@@ -203,7 +203,7 @@ viewer.addEventListener(
             e.preventDefault()
         }
     },
-    { passive: false }
+    { passive: false },
 )
 
 // =========================
