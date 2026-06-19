@@ -227,7 +227,7 @@ HERO
 .hero {
     position: relative;
     min-height: 100%;
-    padding: 140px 48px 80px;
+    padding: 110px 48px 80px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -627,8 +627,8 @@ ABOUT ME
 .about .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 48px;
-    margin-bottom: 148px;
+    gap: 64px;
+    margin-bottom: 120px;
 }
 
 .about > .hero-name {
